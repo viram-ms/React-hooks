@@ -1,3 +1,6 @@
+This is an attendance app. I have made this app with three other people. I wanted to implement react hooks in one of my previous projects. This app does not have well organised folders. But I have tried to implement the concepts of react hooks correctly. So Pls consider the code and sorry for the inconvience caused due to the folder structure.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
