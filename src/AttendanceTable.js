@@ -21,7 +21,7 @@ const styles = theme => ({
 const AttendanceTable = props => {
 
   const [startDate,setStartDate] = useState(new Date());
-  const [formattedDate, setFormattedDate] = useState('');
+  const [formattedDate, setFormattedDate] = useState('21-7-2019');
 
   useEffect(()=>{
     console.log('use effect is running');
@@ -32,10 +32,12 @@ const AttendanceTable = props => {
     var year = completeDate.getFullYear();
     const formatdDate = newdate + "-" + month + "-" + year;
     setFormattedDate(formatdDate);
+    console.log(formattedDate);
   });
 
   const [fetchedData] = useHttp(`https://wizdem.pythonanywhere.com/Attendance/get-attendance-of-day/${props.location.state.name}/${props.location.state.div}/${formattedDate}`,[formattedDate]);
   const fetchedAttenndance = fetchedData ? fetchedData.attendance : [];
+  console.log(formattedDate);
   console.log(fetchedAttenndance);
 
   const handleChange = (date) => {

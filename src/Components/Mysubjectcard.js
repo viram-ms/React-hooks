@@ -21,9 +21,7 @@ var Save_as = require('file-saver');
 const styles = theme => ({
 
   card: {
-    height: 225,
-   
-
+    height: 250,
   },
   content: {
     padding: 2
@@ -48,6 +46,8 @@ const Mysubjectcard = (props) =>{
   const [endDate, setEndDate] = useState(new Date());
   const [formattedDateStart, setFormattedStartDate] = useState('');
   const [formattedDateEnd, setFormattedDateEnd] = useState('');
+  const [selectedDiv,setSelectedDiv] = useState('');
+  const [selectedSubject,setSelectedSubject] = useState({});
   const [open, setOpen] = useState(false);
   const [openDownload, setOpenDownload] = useState(false);
 
@@ -74,13 +74,19 @@ const Mysubjectcard = (props) =>{
     const formatdDateend = enddate + "-" + endmonth + "-" + endyear;
     setFormattedStartDate(formatdDatestart);
     setFormattedDateEnd(formatdDateend);
-    downloadCall(`https://wizdem.pythonanywhere.com/Attendance/get_csv/${subject}/${div}/${formatdDatestart}/${formatdDateend}`) 
+    downloadCall(`https://wizdem.pythonanywhere.com/Attendance/get_csv/${selectedSubject}/${selectedDiv}/${formatdDatestart}/${formatdDateend}`) 
   }
-  const handleOpen = () =>{
+  const handleOpen = (subject) =>{
+    console.log(subject);
+    setSelectedDiv(subject.div);
+    setSelectedSubject(subject);
     setOpen(true);
   }
 
-  const handleClickDownload =()=>{
+  const handleClickDownload =(subject)=>{
+    console.log(subject);    
+    setSelectedDiv(subject.div);
+    setSelectedSubject(subject.name);
     setOpenDownload(true);
   }
 
@@ -104,9 +110,11 @@ const Mysubjectcard = (props) =>{
               <Typography variant="h5" gutterBottom className={classes.content}><b>{subject.name}</b></Typography>
               <Typography variant="h6" gutterBottom className={classes.content}>Semester{subject.semester}</Typography>
               <Typography variant="title" gutterBottom className={classes.content}>{subject.subjectCode}</Typography>
+              <Typography variant="title" gutterBottom className={classes.content}>{subject.div}</Typography>
+
             </CardContent>
             <CardActions disableActionSpacing>
-              <Button variant="contained" color="primary" className={classes.button} onClick={handleClickDownload}>
+              <Button variant="contained" color="primary" className={classes.button} onClick={handleClickDownload.bind(this,subject)}>
                 Download
                 <CloudDownloadIcon className={classes.rightIcon} />
               </Button>
@@ -143,7 +151,7 @@ const Mysubjectcard = (props) =>{
                   </DialogActions>
                 </Dialog>
                 
-             <Button variant="contained" color="primary" className={classes.button} onClick={handleOpen}>
+             <Button variant="contained" color="primary" className={classes.button} onClick={handleOpen.bind(this,subject)}>
                 View
                 <RemoveRedEyeIcon className={classes.rightIcon} />
               </Button>
@@ -162,16 +170,14 @@ const Mysubjectcard = (props) =>{
                 </Button>
                 </div>
                 <DialogActions>
-                  <Link to={{pathname:`/attendanceTable/${subject.div}`, state:subject}} style={{textDecoration:'none'}}>
+                  <Link to={{pathname:`/attendanceTable/${selectedDiv}`, state:selectedSubject}} style={{textDecoration:'none'}}>
                     <Button variant="contained" color="primary" className={classes.button}>
                       View single date
-                      {/* <RemoveRedEyeIcon className={classes.rightIcon} /> */}
                     </Button>
                     </Link>
-                  <Link to={{pathname:`/attendanceTable/range/${subject.div}`, state:subject}} style={{textDecoration:'none'}}>
+                  <Link to={{pathname:`/attendanceTable/range/${selectedDiv}`, state:selectedSubject}} style={{textDecoration:'none'}}>
                       <Button variant="contained" color="primary" className={classes.button}>
                         View range date
-                        {/* <RemoveRedEyeIcon className={classes.rightIcon} /> */}
                       </Button>
                   </Link> 
                 </DialogActions>

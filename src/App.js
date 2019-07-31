@@ -44,7 +44,7 @@ class App extends Component {
         <Route exact path="/" component={login} />
 
         <ProtectedRoute exact path="/student" component={Student} />
-        <ProtectedRoute exact path="/teacher" component={Teacher} />
+        <Route exact path="/teacher" component={Teacher} />
         <ProtectedRoute exact path="/subject" component={Subject} />
         <ProtectedRoute exact path="/attendanceTable/:div" component={AttendanceTable} />
         <ProtectedRoute exact path="/attendanceTable/range/:div" component={AttendanceTableRange} />

@@ -25,7 +25,7 @@ const Teachermain = (props) =>{
             <PersistentDrawerLeft  />
             <Grid container>
               <Grid item xs={12} sm={12} md={12} >
-            <Ttab data={selectedData}/>
+                <Ttab data={selectedData}/>
               </Grid>
               </Grid>
             </div>
